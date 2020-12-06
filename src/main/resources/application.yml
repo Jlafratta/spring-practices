@@ -1,0 +1,8 @@
+spring:
+  h2:
+    console:
+      enabled: true   # Habilita la consola (panel simil phpmyadmin)
+      path: /h2-console
+
+  jpa:
+    show-sql: true  # Habilita las querys JPA
