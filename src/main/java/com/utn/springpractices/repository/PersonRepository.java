@@ -10,4 +10,6 @@ import java.util.List;
 public interface PersonRepository extends JpaRepository<Person, Integer> {
 
     List<Person> findByFirstname(String firstname);
+
+    Integer deleteByFirstnameAndLastname(String firstname, String lastname);
 }

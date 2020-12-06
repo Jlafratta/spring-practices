@@ -1,11 +1,10 @@
 package com.utn.springpractices.model.DTO;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
-public class AddPersonDto {
+@Data
+public class PersonDto {
     private String firstname;
     private String lastname;
+
 }
