@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.Objects.isNull;
+
 @Service
 public class PersonService {
 
@@ -18,8 +20,8 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
-    public List<Person> getAll() {
-        return personRepository.findAll();
+    public List<Person> getAll(String firstname) {
+        return isNull(firstname) ? personRepository.findAll() : personRepository.findByFirstname(firstname);
     }
 
     public void add(Person person) {

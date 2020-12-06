@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor  /* Requerido para JPA */
 @Data   /* @Data abarca Getter, Setter, RequiredArgsConstructor, toString, EqualsAndHashCode */
 @Entity /* Declaro la entidad de persistencia para JPA */
 public class Person {

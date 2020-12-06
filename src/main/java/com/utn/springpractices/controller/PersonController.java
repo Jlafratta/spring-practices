@@ -25,8 +25,8 @@ public class PersonController {
     }
 
     @GetMapping("/")
-    public List<Person> getAll(){
-        return personService.getAll();
+    public List<Person> getAll(@RequestParam (required = false) String firstname){
+        return personService.getAll(firstname);
     }
 
     @PostMapping("/")
