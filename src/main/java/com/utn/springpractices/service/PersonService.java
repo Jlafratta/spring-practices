@@ -24,8 +24,8 @@ public class PersonService {
         return isNull(firstname) ? personRepository.findAll() : personRepository.findByFirstname(firstname);
     }
 
-    public void add(Person person) {
-        personRepository.save(person);
+    public Person add(Person person) {
+        return personRepository.save(person);
     }
 
     public Optional<Person> getById(Integer id) {
