@@ -35,6 +35,7 @@ public class PersonController {
                 .orElseGet( () -> ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Manera funcional - Buen uso del Optional
     }
 
+    /* Optional: filter by firstname */
     @GetMapping("/")
     public ResponseEntity<List<Person>> getAll(@RequestParam (required = false) String firstname){
         List<Person> personList = personService.getAll(firstname);
