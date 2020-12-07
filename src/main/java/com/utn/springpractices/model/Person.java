@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @AllArgsConstructor
@@ -15,7 +16,7 @@ import javax.persistence.Id;
 public class Person {
 
     @Id /* FK (JPA) */
-    @GeneratedValue  /* AUTOINCREMENT (JPA) */
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  /* AUTOINCREMENT (JPA) */
     private Integer id;
 
     @NonNull

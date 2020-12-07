@@ -1,11 +1,20 @@
-spring:
-  h2:
-    console:
-      enabled: true   # Habilita la consola (panel simil phpmyadmin)
-      path: /h2-console
+# spring:
+#  h2:
+#    console:
+#      enabled: true   # Habilita la consola (panel simil phpmyadmin)
+#      path: /h2-console
+#
+#  jpa:
+#    show-sql: true  # Habilita las querys JPA
 
+spring:
+  datasource:
+    url: jdbc:mysql://db4free.net:3306/spring_veterinar
+    username: jlafratta
+    password: 123123123
   jpa:
-    show-sql: true  # Habilita las querys JPA
+    hibernate:
+      ddl-auto: create-drop # Limpia la bdd en cada ejecucion
 
 server:
   servlet:
