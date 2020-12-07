@@ -1,5 +1,6 @@
 package com.utn.springpractices.service;
 
+import com.utn.springpractices.exception.notExist.PersonNotExistException;
 import com.utn.springpractices.model.Person;
 import com.utn.springpractices.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,9 @@ public class PersonService {
         return personRepository.save(person);
     }
 
-    public Optional<Person> getById(Integer id) {
-        return personRepository.findById(id);
+    public Person getById(Integer id) throws PersonNotExistException {
+        return personRepository.findById(id)
+                .orElseThrow(PersonNotExistException::new);
     }
 
     public Person update(Person person) {

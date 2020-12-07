@@ -1,5 +1,6 @@
 package com.utn.springpractices.controller;
 
+import com.utn.springpractices.exception.notExist.PersonNotExistException;
 import com.utn.springpractices.model.DTO.PersonDto;
 import com.utn.springpractices.model.Person;
 import com.utn.springpractices.service.PersonService;
@@ -28,11 +29,18 @@ public class PersonController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Person> getById(@PathVariable Integer id) {
-        Optional<Person> person = personService.getById(id);
+
+        try {
+            return ResponseEntity.ok(personService.getById(id));
+        } catch (PersonNotExistException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        // Optional<Person> person = personService.getById(id);
         /* return person.isPresent() ? ResponseEntity.ok(person.get()) : ResponseEntity.status(HttpStatus.NOT_FOUND).build(); */
-        return person
+        /*return person
                 .map(ResponseEntity::ok)
-                .orElseGet( () -> ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Manera funcional - Buen uso del Optional
+                .orElseGet( () -> ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Manera funcional - Buen uso del Optional */
     }
 
     /* Optional: filter by firstname */
@@ -72,8 +80,15 @@ public class PersonController {
 
     @PutMapping("/")
     public ResponseEntity<Person> update(@RequestBody Person person) {
+        try {
+            personService.getById(person.getId());
+            return ResponseEntity.ok(personService.update(person));
+        } catch (PersonNotExistException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        /*
         Optional<Person> p = personService.getById(person.getId());
-        return p.isPresent() ? ResponseEntity.ok(personService.update(person)) :  ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return p.isPresent() ? ResponseEntity.ok(personService.update(person)) :  ResponseEntity.status(HttpStatus.NOT_FOUND).build(); */
     }
 
     @PostMapping("/")
