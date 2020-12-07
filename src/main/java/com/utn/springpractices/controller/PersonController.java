@@ -95,14 +95,11 @@ public class PersonController {
         if(personDto.getFirstname() == null || personDto.getLastname() == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         try {
-            personService.getById(id);
-            return ResponseEntity.ok(
-                    personService.update(
-                            Person.builder()
-                                    .id(id)
-                                    .firstname(personDto.getFirstname())
-                                    .lastname(personDto.getLastname())
-                                    .build()));
+            Person p = personService.getById(id);
+            p.setFirstname(personDto.getFirstname());
+            p.setLastname(personDto.getLastname());
+
+            return ResponseEntity.ok(personService.update(p));
         } catch (PersonNotExistException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
