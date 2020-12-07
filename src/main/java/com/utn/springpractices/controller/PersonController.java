@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -89,11 +90,19 @@ public class PersonController {
         return rows == 0 ? ResponseEntity.status(HttpStatus.NOT_FOUND).build() : ResponseEntity.ok().build();
     }
 
-    @PutMapping("/")
-    public ResponseEntity<Person> update(@RequestBody Person person) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Person> update(@RequestBody PersonDto personDto, @PathVariable Integer id) {
+        if(personDto.getFirstname() == null || personDto.getLastname() == null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         try {
-            personService.getById(person.getId());
-            return ResponseEntity.ok(personService.update(person));
+            personService.getById(id);
+            return ResponseEntity.ok(
+                    personService.update(
+                            Person.builder()
+                                    .id(id)
+                                    .firstname(personDto.getFirstname())
+                                    .lastname(personDto.getLastname())
+                                    .build()));
         } catch (PersonNotExistException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

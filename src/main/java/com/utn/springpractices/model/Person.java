@@ -11,6 +11,7 @@ import javax.persistence.Id;
 @Data   /* @Data abarca Getter, Setter, RequiredArgsConstructor, toString, EqualsAndHashCode */
 @RequiredArgsConstructor(staticName = "of") /* Para la creacion con dto */
 @Entity /* Declaro la entidad de persistencia para JPA */
+@Builder
 public class Person {
 
     @Id /* FK (JPA) */
