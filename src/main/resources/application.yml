@@ -6,3 +6,7 @@ spring:
 
   jpa:
     show-sql: true  # Habilita las querys JPA
+
+server:
+  servlet:
+    contextPath: /api   # Base path '/api' para toda la app
