@@ -4,6 +4,10 @@ import com.utn.springpractices.exception.notExist.PersonNotExistException;
 import com.utn.springpractices.model.DTO.PersonDto;
 import com.utn.springpractices.model.Person;
 import com.utn.springpractices.service.PersonService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -13,11 +17,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping(value = "/person", produces = "application/json")
 public class PersonController {
 
     private final PersonService personService;
@@ -27,6 +30,13 @@ public class PersonController {
         this.personService = personService;
     }
 
+    @ApiOperation(value = "Get by ID", response = Person.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved entity"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you are trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<Person> getById(@PathVariable Integer id) {
 
@@ -44,6 +54,7 @@ public class PersonController {
     }
 
     /* Optional: filter by firstname */
+    @ApiOperation(value = "Get all. Optionally can filter by firstname")
     @GetMapping("/")
     public ResponseEntity<List<Person>> getAll(@RequestParam (required = false) String firstname){
         List<Person> personList = personService.getAll(firstname);
