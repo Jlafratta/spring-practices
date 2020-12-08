@@ -40,11 +40,11 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>
+		</dependency>-->
 
 		<!-- SWAGGER -->
 		<dependency>
@@ -63,6 +63,21 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+
+		<!-- TEST -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.10.19</version>
+			<scope>test</scope>
 		</dependency>
 
     </dependencies>
@@ -99,6 +114,7 @@
 						<exclude>**/com/utn/model/**/*</exclude>
 						<exclude>**/com/utn/model/DTO/**/*</exclude>
 						<exclude>**/com/utn/exceptions/**/*</exclude>
+						<exclude>**/com/utn/repository/**/*</exclude>
 
 
 					</excludes>
