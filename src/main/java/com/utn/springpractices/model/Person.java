@@ -1,5 +1,6 @@
 package com.utn.springpractices.model;
 
+import com.utn.springpractices.model.DTO.PersonDto;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -10,7 +11,6 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor  /* Requerido para JPA */
 @Data   /* @Data abarca Getter, Setter, RequiredArgsConstructor, toString, EqualsAndHashCode */
-@RequiredArgsConstructor(staticName = "of") /* Para la creacion con dto */
 @Entity /* Declaro la entidad de persistencia para JPA */
 @Builder
 public class Person {
@@ -19,8 +19,14 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)  /* AUTOINCREMENT (JPA) */
     private Integer id;
 
-    @NonNull
     private String firstname;
-    @NonNull
+
     private String lastname;
+
+    public static Person buildFromDTO(PersonDto p) {
+        return Person.builder()
+                .firstname(p.getFirstname())
+                .lastname(p.getLastname())
+                .build();
+    }
 }

@@ -1,6 +1,7 @@
 package com.utn.springpractices.service;
 
-import com.utn.springpractices.exception.notExist.PersonNotExistException;
+import com.utn.springpractices.exception.notFound.PersonNotFoundException;
+import com.utn.springpractices.model.DTO.PersonDto;
 import com.utn.springpractices.model.Person;
 import com.utn.springpractices.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +26,25 @@ public class PersonService {
         return isNull(firstname) ? personRepository.findAll() : personRepository.findByFirstname(firstname);
     }
 
-    public Person add(Person person) {
-        return personRepository.save(person);
+    public Person add(PersonDto dto) {
+        return personRepository.save(Person.buildFromDTO(dto));
     }
 
-    public Person getById(Integer id) throws PersonNotExistException {
+    public Person getById(Integer id) {
         return personRepository.findById(id)
-                .orElseThrow(PersonNotExistException::new);
+                .orElseThrow(PersonNotFoundException::new);
     }
 
-    public Person update(Person person) {
+    public Person update(Integer id, PersonDto dto) {
+        return personRepository
+                .findById(id)
+                .map(person -> updateInstance(person, dto))
+                .orElseThrow(PersonNotFoundException::new);
+    }
+
+    private Person updateInstance(Person person, PersonDto dto) {
+        person.setFirstname(dto.getFirstname());
+        person.setLastname(dto.getLastname());
         return personRepository.save(person);
     }
 
@@ -43,8 +53,8 @@ public class PersonService {
     }
 
     @Transactional /* Aplicado para garantizar que se ejecute de manera transaccional, y no romper las propiedades ACID de la bdd */
-    public Integer deleteByFirstnameAndLastname(Person person) {
-        return personRepository.deleteByFirstnameAndLastname(person.getFirstname(), person.getLastname());
+    public Integer deleteByFirstnameAndLastname(PersonDto dto) {
+        return personRepository.deleteByFirstnameAndLastname(dto.getFirstname(), dto.getLastname());
     }
 
 }

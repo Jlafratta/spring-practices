@@ -1,6 +1,6 @@
 package com.utn.springpractices.controller;
 
-import com.utn.springpractices.exception.notExist.PersonNotExistException;
+import com.utn.springpractices.exception.notFound.PersonNotFoundException;
 import com.utn.springpractices.model.Person;
 import com.utn.springpractices.service.PersonService;
 import org.junit.Before;
@@ -30,7 +30,7 @@ public class PersonControllerTest {
     }
 
     @Test
-    public void testGetByIdOk() throws PersonNotExistException {
+    public void testGetByIdOk() throws PersonNotFoundException {
         // Mock data
         Person p = Person.builder()
                 .id(1)
@@ -53,10 +53,10 @@ public class PersonControllerTest {
     }
 
     @Test
-    public void testGetByIdNotFound() throws PersonNotExistException {
+    public void testGetByIdNotFound() throws PersonNotFoundException {
         // Mock data
         Integer id = anyInt();
-        when(personService.getById(id)).thenThrow(new PersonNotExistException());
+        when(personService.getById(id)).thenThrow(new PersonNotFoundException());
         personController.getById(id);
         verify(personService, times(1)).getById(id);
     }

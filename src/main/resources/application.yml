@@ -9,9 +9,9 @@
 
 spring:
   datasource:
-    url: jdbc:mysql://db4free.net:3306/spring_veterinar
-    username: jlafratta
-    password: 123123123
+    url: jdbc:mysql://localhost:3306/spring_veterinary
+    username: root
+    password:
   jpa:
     hibernate:
       ddl-auto: create-drop # Limpia la bdd en cada ejecucion
