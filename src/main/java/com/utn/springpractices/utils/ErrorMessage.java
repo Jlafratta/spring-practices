@@ -8,4 +8,5 @@ public class ErrorMessage {
 
     /* Person */
     public static final String PERSON_NOT_FOUND = "There wasn't any Person according to the request";
+    public static final String PET_NOT_FOUND = "There wasn't any Pet according to the request";
 }

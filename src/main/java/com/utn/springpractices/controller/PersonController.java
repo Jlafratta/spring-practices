@@ -71,6 +71,11 @@ public class PersonController {
         return ResponseEntity.ok(personService.update(id, personDto));
     }
 
+    @PostMapping("/{id}/pet/{petId}")
+    public ResponseEntity<Person> assignPet(@PathVariable Integer id, @PathVariable Integer petId){
+        return ResponseEntity.ok(personService.assignPet(id, petId));
+    }
+
     @PostMapping("/")
     public ResponseEntity<Person> add(@Valid @RequestBody PersonDto personDto) {
 

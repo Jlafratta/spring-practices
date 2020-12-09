@@ -21,13 +21,19 @@ public class Person {
 
     private String lastname;
 
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "person", cascade = CascadeType.DETACH)
     private List<Pet> pets;
+
+    public void addPet(Pet pet) {
+        this.pets.add(pet);
+        pet.setPerson(this);
+    }
 
     public static Person buildFromDTO(PersonDto p) {
         return Person.builder()
                 .firstname(p.getFirstname())
                 .lastname(p.getLastname())
+                .pets(p.getPets())
                 .build();
     }
 }

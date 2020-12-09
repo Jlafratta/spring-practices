@@ -1,11 +1,9 @@
 package com.utn.springpractices.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.utn.springpractices.model.DTO.PetDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -23,8 +21,9 @@ public class Pet {
     private String name;
     private Integer weight;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference  /* Indica que el obj es una referencia para la entidad. Previene entrar en bucle al acceder al attr */
+    @ToString.Exclude
     private Person person;
 
     public static Pet buildFromDTO(PetDto petDto) {
