@@ -3,10 +3,8 @@ package com.utn.springpractices.model;
 import com.utn.springpractices.model.DTO.PersonDto;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor  /* Requerido para JPA */
@@ -22,6 +20,9 @@ public class Person {
     private String firstname;
 
     private String lastname;
+
+    @OneToMany(mappedBy = "person")
+    private List<Pet> pets;
 
     public static Person buildFromDTO(PersonDto p) {
         return Person.builder()

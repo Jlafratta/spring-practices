@@ -14,7 +14,7 @@ spring:
     password:
   jpa:
     hibernate:
-      ddl-auto: create-drop # Limpia la bdd en cada ejecucion
+      ddl-auto: update
 
 server:
   servlet:
