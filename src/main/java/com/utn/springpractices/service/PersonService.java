@@ -75,7 +75,7 @@ public class PersonService {
                 .orElseThrow(PetNotFoundException::new);
 
         person.addPet(pet);
-        
+
         return personRepository.save(person);
     }
 }
